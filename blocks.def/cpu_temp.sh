@@ -1,7 +1,7 @@
 #!/bin/sh
 
-ICONn="" # icon for normal temperatures
-ICONc="" # icon for critical temperatures
+ICONn="\x0d \x0b" # icon for normal temperatures
+ICONc="\x0c \x0b" # icon for critical temperatures
 
 crit=70 # critical temperature
 
