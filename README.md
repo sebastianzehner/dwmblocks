@@ -1,4 +1,4 @@
-# My fork of dwmblocks - a modular and lightweight status bar for dwm
+# dwmblocks - a modular and lightweight status bar for dwm
 
 Modular status monitor for dwm written in C with features including
 signaling, clickability, cursor hinting and color.
