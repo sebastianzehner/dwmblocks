@@ -25,10 +25,13 @@ whichever appropriate, is essential for dwmblocks to function properly. It will
 add support for colored text, clickability and cursor hinting when hovering on
 clickable blocks (inspired by polybar).
 
-Clickability is inspired by statuscmd patch for dwm. On clicking on text
-corresponding to a clickable block, the program specified to handle clicks for
-that block is executed with the first argument specifying which button was
-clicked (1 for left, 2 for middle and 3 for right).
+Clickability is inspired by **statuscmd** patch for **dwm**. On clicking on text corresponding to a clickable block, the program specified to handle clicks for that block is executed with the first argument specifying which mouse button was clicked:
+
+- "`1` for left click"
+- "`2` for middle click"
+- "`3` for right clock"
+- "`4` for scroll up"
+- "`5` for scroll down"
 
 Colored output is inspired by statuscolors patch for dwm. To add colors, have
 your programs for the blocks output raw characters from `\x0b` to `\x1f`. `\x0b`
