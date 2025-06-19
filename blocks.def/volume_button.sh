@@ -1,5 +1,7 @@
 #!/bin/sh
 case "$1" in
-    1) pactl set-sink-mute @DEFAULT_SINK@ toggle ;;
-    3) pactl set-sink-volume @DEFAULT_SINK@ 50% ;;
+    1) audio_volume mute ;;
+    3) audio_volume set 50 ;;
+    4) audio_volume up ;;
+    5) audio_volume down ;;
 esac

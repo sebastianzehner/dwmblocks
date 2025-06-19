@@ -1,0 +1,8 @@
+blocks
+config.h
+dwmblocks
+sigdwmblocks/sigdwmblocks
+xgetrootname/xgetrootname
+*.o
+*.orig
+*.rej
