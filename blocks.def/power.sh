@@ -1,3 +1,3 @@
 #!/bin/sh
 ICON=" "
-printf "$ICON "
+printf "$ICON"
