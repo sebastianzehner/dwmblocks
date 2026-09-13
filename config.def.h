@@ -50,6 +50,7 @@ static Block blocks[] = {
 //        { PATH("cpu_temp.sh"),          PATH("cpu_temp_button.sh"),           1,              4},
         { PATH("gpu.sh"),               PATH("gpu_button.sh"),                5,              8},
         { PATH("volume.pipewire.sh"),   PATH("volume_button.sh"),             0,              2},
+        { PATH("volume_bridge_cast.sh"),PATH("mute_phones_out.sh"),           0,              3},
 //        { PATH("wifi.sh"),              PATH("wifi_button.sh"),               30,             9},
 //        { PATH("battery_uconsole.sh"),  PATH("battery_uconsole_button.sh"),   30,             3},
         { PATH("power.sh"),             PATH("power_button.sh"),              0,              5},
