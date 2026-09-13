@@ -5,6 +5,33 @@
 # Modified headphone detection with cm5 and simple-audio-card driver using amixer.
 # Also see ../daemons/pulse_daemon.sh
 
+# Bridge Cast's main sink is an "Internal" PipeWire node, use wpctl instead.
+bridge_id="$(wpctl status | awk '
+    /Sinks:/   { in_sinks=1; next }
+    /Sources:/ { in_sinks=0 }
+    in_sinks && /BRIDGE CAST V2 0/ {
+        match($0, /[0-9]+/)
+        print substr($0, RSTART, RLENGTH)
+        exit
+    }
+')"
+
+if [ -n "$bridge_id" ]; then
+  ICONsn="\x0d󰕾 \x0b" # not muted
+  ICONsm="\x0c󰖁 \x0b" # muted
+
+  bridge_vol_raw="$(wpctl get-volume "$bridge_id")"
+  bridge_frac="$(echo "$bridge_vol_raw" | awk '{print $2}')"
+  bridge_pct="$(awk -v v="$bridge_frac" 'BEGIN{printf "%d%%", v*100+0.5}')"
+
+  if echo "$bridge_vol_raw" | grep -q MUTED; then
+    printf "%b%s\n" "$ICONsm" "$bridge_pct"
+  else
+    printf "%b%s\n" "$ICONsn" "$bridge_pct"
+  fi
+  exit
+fi
+
 # Detect default sink
 sink="$(pactl info | awk '$1 == "Default" && $2 == "Sink:" {print $3}')"
 [ -n "$sink" ] || exit
@@ -13,13 +40,13 @@ sink="$(pactl info | awk '$1 == "Default" && $2 == "Sink:" {print $3}')"
 model=$(cat /proc/device-tree/model 2>/dev/null || echo "unknown")
 
 if echo "$model" | grep -qi "Compute Module 5"; then
-    # On CM5 / RP5 detect headphone plugged state via amixer (card 2)
-    headphone_plugged=$(amixer -c 2 get 'Headphones' | awk '
+  # On CM5 / RP5 detect headphone plugged state via amixer (card 2)
+  headphone_plugged=$(amixer -c 2 get 'Headphones' | awk '
         /Mono: Playback \[on\]/ { print 1; exit }
         END { if (NR==0) print 0 }')
 else
-    # No override for other devices
-    headphone_plugged=""
+  # No override for other devices
+  headphone_plugged=""
 fi
 
 # Parse pactl output with possible CM5 headphone override
